@@ -19,6 +19,8 @@ export default class NewBill {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+    const regexFileAccepted = new RegExp('^.*\.(jpg|jpeg|gif|png|pdf)$', "i");// cross-check on accept="image/png, image/gif, image/jpeg, .pdf"
+    if (regexFileAccepted.test(file.name)) return false;
     this.firestore
       .storage
       .ref(`justificatifs/${fileName}`)
