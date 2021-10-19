@@ -26,29 +26,44 @@ export const filteredBills = (data, status) => {
     }) : []
 }
 
+/**
+ * Render a bill card
+ * @param {object} bill 
+ * @param {string} bill.id
+ * @param {string} bill.email
+ * @param {string} bill.name
+ * @param {number} bill.amount
+ * @param {string} bill.date
+ * @param {string} bill.type
+ * @returns {HTMLElement}
+ */
 export const card = (bill) => {
-  const firstAndLastNames = bill.email.split('@')[0]
-  const firstName = firstAndLastNames.includes('.') ?
-    firstAndLastNames.split('.')[0] : ''
-  const lastName = firstAndLastNames.includes('.') ?
-  firstAndLastNames.split('.')[1] : firstAndLastNames
-
-  return (`
-    <div class='bill-card' id='open-bill${bill.id}' data-testid='open-bill${bill.id}'>
-      <div class='bill-card-name-container'>
-        <div class='bill-card-name'> ${firstName} ${lastName} </div>
-        <span class='bill-card-grey'> ... </span>
-      </div>
-      <div class='name-price-container'>
-        <span> ${bill.name} </span>
-        <span> ${bill.amount} € </span>
-      </div>
-      <div class='date-type-container'>
-        <span> ${formatDate(bill.date)} </span>
-        <span> ${bill.type} </span>
-      </div>
+  // I wouldn't want to be in your head
+  // const firstAndLastNames = bill.email.split('@')[0]
+  // const firstName = firstAndLastNames.includes('.') ? firstAndLastNames.split('.')[0] : ''
+  // const lastName = firstAndLastNames.includes('.') ? firstAndLastNames.split('.')[1] : firstAndLastNames
+  // ${firstName} ${lastName}
+  const name = bill.email.split('@')[0].replace('.', ' ');// Format name
+  const date = (bill.date) ? formatDate(bill.date) : 'Aucune date fournis'; // Format date
+  const element = document.createElement('div');
+  element.classList.add('bill-card');
+  element.setAttribute('id', 'open-bill' + bill.id);
+  element.dataset.testid = 'open-bill' + bill.id;
+  element.innerHTML = `
+    <div class='bill-card-name-container'>
+      <div class='bill-card-name'>${name}</div>
+      <span class='bill-card-grey'> ... </span>
     </div>
-  `)
+    <div class='name-price-container'>
+      <span> ${bill.name} </span>
+      <span> ${bill.amount} € </span>
+    </div>
+    <div class='date-type-container'>
+      <span> ${date} </span>
+      <span> ${bill.type} </span>
+    </div>
+  `;
+  return element;
 }
 
 export const cards = (bills) => {
@@ -57,12 +72,9 @@ export const cards = (bills) => {
 
 export const getStatus = (index) => {
   switch (index) {
-    case 1:
-      return "pending"
-    case 2:
-      return "accepted"
-    case 3:
-      return "refused"
+    case 1: return "pending";
+    case 2: return "accepted";
+    case 3: return "refused";
   }
 }
 
@@ -71,6 +83,11 @@ export default class {
     this.document = document
     this.onNavigate = onNavigate
     this.firestore = firestore
+    this.billsStatusState = {
+      1: false,
+      2: false,
+      3: false,
+    };
     $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
     $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
     $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
@@ -129,28 +146,34 @@ export default class {
     this.updateBill(newBill)
     this.onNavigate(ROUTES_PATH['Dashboard'])
   }
-
+  /**
+   * handleShowTickets
+   * @param {MouseEvent} e 
+   * @param {Array} bills 
+   * @param {number} index 
+   * @returns {Array}
+   */
   handleShowTickets(e, bills, index) {
-    if (this.counter === undefined || this.index !== index) this.counter = 0
-    if (this.index === undefined || this.index !== index) this.index = index
-    if (this.counter % 2 === 0) {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html(cards(filteredBills(bills, getStatus(this.index))))
-      this.counter ++
-    } else {
-      $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
-      $(`#status-bills-container${this.index}`)
-        .html("")
-      this.counter ++
+    this.billsStatusState[index] = !this.billsStatusState[index];// Toggle
+    this.index = index;
+    const elArrow = document.getElementById('arrow-icon' + index);
+    const elContainer = document.getElementById('status-bills-container' + index);
+    if (this.billsStatusState[index]) {// Show bills
+      elArrow.style.transform = 'rotate(0deg)';
+      const status = getStatus(index);
+      const filteredData = filteredBills(bills, status);
+      filteredData.forEach((bill) => {
+        const el = card(bill);
+        el.addEventListener('click', (e) => {
+          this.handleEditTicket(e, bill, bills)
+        })
+        elContainer.append(el);
+      })
+    } else {// Hide Bills
+      elArrow.style.transform = 'rotate(90deg)';
+      elContainer.innerHTML = '';
     }
-
-    bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
-    })
-
-    return bills
-
+    return bills;
   }
 
   // not need to cover this function by tests
