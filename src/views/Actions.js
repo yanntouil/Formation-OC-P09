@@ -6,19 +6,17 @@ export default (billUrl, fileName) => {
   const regexFileDownloadable = new RegExp('^.*\.(pdf)$', "i");
 
   if (regexFileViewable.test(fileName)) {// Modal viewer
-    return (
-    `<div class="icon-actions">
-      <div data-testid="icon-eye" data-bill-url="${billUrl}">
-      ${eyeBlueIcon}
-      </div>
-    </div>`
-    );
+    return `
+    <div class="icon-actions">
+      <div data-testid="icon-eye" data-bill-url="${billUrl}">${eyeBlueIcon}</div>
+    </div>
+    `;
   } else if (regexFileDownloadable.test(fileName)) {// Link to download
-    return (
-      `<div class="icon-actions">
-        <a href="${billUrl}" download="${fileName}" target="blank">${downloadBlueIcon}</a>
-      </div>`
-      );
+    return `
+      <div class="icon-actions">
+        <a href="${billUrl}" download="${fileName}" target="blank" data-testid="icon-download">${downloadBlueIcon}</a>
+      </div>
+      `;
     } else {// unrecognized type
       return '';
     }
