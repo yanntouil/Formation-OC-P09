@@ -15,12 +15,17 @@ export default class NewBill {
     this.fileName = null
     new Logout({ document, localStorage, onNavigate })
   }
+
   handleChangeFile = e => {
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
-    const regexFileAccepted = new RegExp('^.*\.(jpg|jpeg|gif|png|pdf)$', "i");// cross-check on accept="image/png, image/gif, image/jpeg, .pdf"
+
+    // cross-check on accept="image/png, image/gif, image/jpeg, .pdf"
+    const regexFileAccepted = new RegExp('^.*\.(jpg|jpeg|gif|png|pdf)$', "i");
     if (regexFileAccepted.test(file.name)) return false;
+    
+    // not need to cover this function by tests
     this.firestore
       .storage
       .ref(`justificatifs/${fileName}`)
