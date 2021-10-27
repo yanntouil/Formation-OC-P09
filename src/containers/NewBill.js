@@ -25,7 +25,7 @@ export default class NewBill {
     const regexFileAccepted = new RegExp('^.*\.(jpg|jpeg|gif|png|pdf)$', "i");
     if (!regexFileAccepted.test(file.name)) return false;
     // not need to cover this function by tests
-    this.firestore
+    if (this.firestore) this.firestore
       .storage
       .ref(`justificatifs/${fileName}`)
       .put(file)

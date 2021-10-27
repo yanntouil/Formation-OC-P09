@@ -5,6 +5,7 @@ import BillsUI from "../views/BillsUI.js"
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import { ROUTES } from '../constants/routes.js'
 import firebase from "../__mocks__/firebase"
+import Firestore from "../app/Firestore";
 
 describe("Given I am connected as an employee and on NewBill Page", () => {
   let newBill;
@@ -26,15 +27,15 @@ describe("Given I am connected as an employee and on NewBill Page", () => {
    */
   describe("When I select a file", () => {
     test("Then it should be changed in the input", () => {
-      const handleChange = jest.fn(newBill.handleChange)
+      const handleChangeFile = jest.fn(newBill.handleChangeFile)
       const inputFile = screen.getByTestId("file")
-      inputFile.addEventListener('change', handleChange)
+      inputFile.addEventListener('change', handleChangeFile)
       fireEvent.change(inputFile, {
         target: {
           files: [new File(["myProof.png"], "myProof.png", { type: "image/png" })]
         }
       })
-      expect(handleChange).toHaveBeenCalled();
+      expect(handleChangeFile).toHaveBeenCalled();
       expect(inputFile.files[0].name).toBe("myProof.png");
     })
   })
