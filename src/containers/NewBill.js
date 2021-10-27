@@ -24,7 +24,6 @@ export default class NewBill {
     // cross-check on accept="image/png, image/gif, image/jpeg, .pdf"
     const regexFileAccepted = new RegExp('^.*\.(jpg|jpeg|gif|png|pdf)$', "i");
     if (!regexFileAccepted.test(file.name)) return false;
-    
     // not need to cover this function by tests
     this.firestore
       .storage
@@ -38,7 +37,7 @@ export default class NewBill {
   }
   handleSubmit = e => {
     e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    //console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,

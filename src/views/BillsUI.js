@@ -5,7 +5,6 @@ import { formatDate } from '../app/format.js'
 import Actions from './Actions.js'
 
 
-
 const row = (bill, options) => {
   return (`
     <tr>

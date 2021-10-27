@@ -1,6 +1,7 @@
 import eyeBlueIcon from "../assets/svg/eye_blue.js"
 import downloadBlueIcon from "../assets/svg/download_blue.js"
 
+
 export default (billUrl, fileName) => {
   const regexFileViewable = new RegExp('^.*\.(jpg|jpeg|gif|png)$', "i");
   const regexFileDownloadable = new RegExp('^.*\.(pdf)$', "i");
