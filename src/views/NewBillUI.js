@@ -54,7 +54,7 @@ export default () => {
                     <textarea class="form-control blue-border" data-testid="commentary" rows="3"></textarea>
                   </div>
                   <div class="col-half">
-                    <label for="file" class="bold-label">Justificatif (png, gif ou jpeg)</label>
+                    <label for="file" class="bold-label">Justificatif (pdf, png, gif ou jpeg)</label>
                     <input required type="file" accept="image/png, image/gif, image/jpeg, .pdf" class="form-control blue-border" data-testid="file" />
                   </div>
                 </div>
