@@ -13,7 +13,7 @@
 **Lancez l'application** :   
 ```$ live-server```
 
-**Puis allez à l'adresse `http://127.0.0.1:8080/` dans votre navigateur**   
+Puis allez à l'adresse `http://127.0.0.1:8080/` dans votre navigateur   
 Vous pourez vous logger avec ces adresses mail   
 ```
 cedric.hiely@billed.com
