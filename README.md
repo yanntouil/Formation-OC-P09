@@ -1,5 +1,5 @@
 # Projet 6 - Développeur Front-End
-#### Comment lancer l'application en local :   
+### Comment lancer l'application en local :   
 
 **Clonez le projet dans votre dossier** :   
 ```$ git clone https://github.com/yanntouil/YannTouil_9_18112021.git .```
@@ -22,7 +22,7 @@ jean.limbert@billed.com
 joanna.binet@billed.com
 ```
 
-#### Comment lancer les tests en local :   
+### Comment lancer les tests en local :   
 
 **Comment lancer tous les tests en local avec Jest** :   
 ```$ npm run test```
