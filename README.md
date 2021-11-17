@@ -4,17 +4,17 @@
 **Clonez le projet dans votre dossier** :   
 ```$ git clone https://github.com/yanntouil/YannTouil_9_18112021.git .```
 
-**Installez les packages npm (décrits dans package.json)** :
+**Installez les packages npm (décrits dans package.json)** :   
 ```$ npm install```
 
-**Installez live-server pour lancer un serveur local** :
+**Installez live-server pour lancer un serveur local** :   
 ```$ npm install -g live-server```
 
-**Lancez l'application** :
+**Lancez l'application** :   
 ```$ live-server```
 
-**Puis allez à l'adresse `http://127.0.0.1:8080/` dans votre navigateur**
-Vous pourez vous logger avec ces adresses mail
+**Puis allez à l'adresse `http://127.0.0.1:8080/` dans votre navigateur**   
+Vous pourez vous logger avec ces adresses mail   
 ```
 cedric.hiely@billed.com
 christian.saluzzo@billed.com
@@ -22,20 +22,20 @@ jean.limbert@billed.com
 joanna.binet@billed.com
 ```
 
-#### Comment lancer les tests en local :
+#### Comment lancer les tests en local :   
 
-**Comment lancer tous les tests en local avec Jest** :
+**Comment lancer tous les tests en local avec Jest** :   
 ```$ npm run test```
 
-**Comment lancer un seul test avec Jest** :
+**Comment lancer un seul test avec Jest** :   
 
-Installez jest-cli globalement
+Installez jest-cli globalement   
 ```$ npm i -g jest-cli```
 
-Lancer le test
+Lancer le test   
 ```$ jest src/__tests__/your_test_file.js```
 
-**Comment voir la couverture de test** :
+**Comment voir la couverture de test** :   
 ```http://127.0.0.1:8080/coverage/lcov-report/```
 
 ## Débuggez et testez un SaaS RH
